@@ -1,0 +1,358 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1><span class="emphasis">JS </span>Scope</h1>
+
+				<aside class="notes">
+					Landing
+				</aside>
+			</section>
+			<section>
+				<section>
+					<p><span class="emphasis">Scope</span></p>
+					<div style="text-align: left;">
+						<p>the locations where the variable is accessible</p>
+						<p>a logical boundaries in which a variable (or expression) has its meaning</p>
+					</div>
+					<pre class="fragment"><code data-trim data-noescape>
+function (...) {
+  var anything;
+}
+						</code></pre>
+				</section>
+				<section>
+					<p><span class="emphasis">Scope</span></p>
+					<ul>
+						<li class="fragment">global</li>
+						<li class="fragment">local</li>
+					</ul>
+					<aside class="notes">
+						30 sec and fast
+					</aside>
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<p><span class="emphasis">nested</span> scope</p>
+					<pre class="fragment"><code data-trim data-noescape>
+function space() {
+  var loki = 'loki';
+
+  function planet() {
+    var god = 'god';
+
+    console.log(loki, god);
+  }
+}
+						</code></pre>
+				</section>
+				<section>
+					<p>scope's <span class="emphasis">shadowing</span></p>
+					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
+var loki = 'loki';
+
+function space() {
+  var loki = 'god';
+
+  function planet() {
+    var loki = 'human';
+
+    console.log(loki);
+  }
+
+  planet();
+}
+
+space();
+						</code></pre>
+					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
+var loki = 'loki';
+
+function space() {
+  var loki = 'god';
+
+  function planet() {
+    console.log(loki);
+  }
+
+  planet();
+}
+
+space();
+						</code></pre>
+					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
+var loki = 'loki';
+
+function space() {
+
+  function planet() {
+    console.log(loki);
+  }
+
+  planet();
+}
+
+space();
+						</code></pre>
+					<div class="fragment" style="position: absolute; width: 100%;">
+						<p>Example:</p>
+						<pre><code data-trim data-noescape>
+function calculate() {
+  var a = 3, b = 5;
+
+  function calculateInner() {
+    var b = 7, c = 11;
+
+    a += b + c;
+  };
+
+  calculateInner();
+
+  console.log('a =', a, '; b = ', b); // a = 21, b = 5
+}
+
+calculate();
+							</code></pre>
+					</div>
+				</section>
+				<section>
+										<p><span class="emphasis">hoisting</span><span class="fragment" data-fragment-index="2"> issue?</span></p>
+										<p class="fragment current-visible" style="position: absolute;" data-fragment-index="0">all variables' and functions' <span class="emphasis">declarations</span> are moved (hoisted) to the top of their direct scope</p>
+										<div class="fragment current-visible" style="position: absolute; width: 100%; display: flex;" data-fragment-index="1">
+											<pre style="width: 45%;"><code data-trim data-noescape>
+				space();
+
+				function space() {
+				  console.log(loki); // undefined
+				}
+
+				var loki = 'god';
+											</code></pre>
+											<pre style="width: 45%;"><code data-trim data-noescape>
+				var loki;
+				function space() {
+				  console.log(loki); // undefined
+				}
+
+				space();
+				loki = 'god';
+											</code></pre>
+										</div>
+
+
+									</section>
+				<section>
+					<p>single <span class="emphasis">var</span> pattern</p>
+					<pre class="fragment"><code data-trim data-noescape>
+function planet(population) {
+  var loki = 'human', country = 'any', person = 0;
+
+  if (country) {
+    country = '';
+
+    for (person = 0; person < population; person++) {
+        // do smth personally
+    }
+  }
+
+  console.log(loki, country, person);
+}
+						</code></pre>
+				</section>
+				<section>
+					<p>no <span class="emphasis">block</span> scope (up to ES2015)</p>
+					<p class="fragment">only functions create a new scope</p>
+					<pre class="fragment"><code data-trim data-noescape>
+function planet(population) {
+  var loki = 'human';
+
+  if (true) {
+    var country = 'any';
+
+    for (var person = 0; person < population; person++) {
+        // do smth personally
+    }
+  }
+
+  console.log(loki, country, person);
+}
+						</code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<p><span class="emphasis">global</span> scope</p>
+					<p class="fragment current-visible" style="position: absolute;">every variable declared outside all functions or curly braces <span class="hljs" style="display: initial; padding: 3px 5px;">{}</span> is said to be defined in the global scope</p>
+					<div style="position: absolute; width: 100%;">
+						<pre class="fragment"><code data-trim>
+<script src="script.js"></script>
+							</code></pre>
+						<pre class="fragment"><code data-trim>
+<script type="text/javascript">
+  var loki = 'loki';
+  function space() {
+    loki = 'god';
+  }
+</script>
+							</code></pre>
+						<pre class="fragment"><code data-trim data-noescape>
+var loki = 'loki';
+
+function space() {
+  country = 'any'; // no "var"
+}
+							</code></pre>
+					</div>
+				</section>
+				<section>
+					<p><span class="emphasis">global</span> scope</p>
+					<p class="fragment"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window">window</a> (web)</p>
+
+
+				</section>
+				<section>
+					<p><span class="emphasis">global</span> scope</p>
+					<p class="big cons">avoid global variables</p>
+					<ul class="fragment">
+						<li>un-predictable</li>
+						<li>non-reusable</li>
+						<li>naming collisions</li>
+					</ul>
+					<pre class="fragment"><code data-trim data-noescape>
+if (('loki' in window) === false) {
+  var loki = 1;
+}
+console.log(loki);
+            </code></pre>
+				</section>
+			</section>
+			<section>
+				<section>
+					<p><span class="emphasis">local</span> scope</p>
+					<ul class="fragment">
+						<li>function scope</li>
+						<li>block scope</li>
+					</ul>
+				</section>
+				<section>
+					<p><span class="emphasis">block</span> scope (ES2015+)</p>
+					<pre class="fragment"><code data-trim data-noescape>
+{
+  const loki = 'captive';
+  let country = 'any';
+  console.log(loki, country);
+}
+
+console.log(loki, country); // ReferenceError: loki is not defined
+            </code></pre>
+				</section>
+				<section>
+					<p><span class="emphasis">block</span> scope</p>
+					<pre class="fragment"><code data-trim data-noescape>
+function planet(population) {
+  const loki = 'human';
+
+  if (true) {
+    const country = 'any';
+
+    for (let person = 0; person < population; person++) {
+        // do smth personally
+    }
+  }
+
+  console.log(loki, country, person); // ReferenceError: country is not defined
+}
+            </code></pre>
+				</section>
+				<section>
+					<p><span class="emphasis">const</span> vs <span class="emphasis">let</span></p>
+					<p class="fragment">
+						<span class="emphasis">let</span> = <span class="emphasis">var</span> + block scope
+					</p>
+					<p class="fragment">
+						<span class="emphasis">const</span> = <span class="emphasis">let</span> + reference immutability
+					</p>
+					<pre class="fragment"><code data-trim data-noescape>
+let population = 0;
+population = 1;
+population--;
+
+const country = 'any';
+country = 'different'; // TypeError: Assignment to constant variable.
+
+const cage = {
+  width: 15,
+  heigh: 10,
+};
+cage.width = 20;
+cage = null; // TypeError: Assignment to constant variable.
+            </code></pre>
+				</section>
+			</section>
+
+
+			<section>
+				<img src="https://pics.me.me/attention-thanks-for-your-attention-9673306.png" />
+			</section>
+
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [{
+					src: 'plugin/markdown/marked.js'
+				},
+				{
+					src: 'plugin/markdown/markdown.js'
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function() {
+						hljs.initHighlightingOnLoad();
+					}
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>
