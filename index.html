@@ -37,8 +37,8 @@
 				<section>
 					<p><span class="emphasis">Scope</span></p>
 					<div style="text-align: left;">
-						<p>the locations where the variable is accessible</p>
-						<p>a logical boundaries in which a variable (or expression) has its meaning</p>
+						<p> determines the accessibility (visibility) of variables.</p>
+
 					</div>
 					<pre class="fragment"><code data-trim data-noescape>
 function (...) {
@@ -46,188 +46,208 @@ function (...) {
 }
 						</code></pre>
 				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<p><span class="emphasis">nested</span> scope</p>
+					<img src="https://media.giphy.com/media/MwrQvTZA9Puuc/giphy.gif" style="max-width: 65%;" />
+
+				</section>
+
+				<section>
+					<p><span class="emphasis">nested</span> scope</p>
+					<pre class="fragment"><code data-trim data-noescape>
+						var carName = "Volvo";
+						myFunction();
+
+						function myFunction() {
+						  console.log('I like ' + carName); //I like Volvo
+						}
+					</code></pre>
+				</section>
+				<section>
+					<p>scope's <span class="emphasis">shadowing</span></p>
+					<img src="https://media.giphy.com/media/VBmMUxIiWNM7S/giphy.gif" style="max-width: 65%;" />
+				</section>
+				<section>
+					<p>scope's <span class="emphasis">shadowing</span></p>
+					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
+var example = '1';
+
+function foo1() {
+  var example = '2';
+
+  function foo2() {
+    var example = '3';
+
+    console.log(example); //3
+  }
+
+  foo2();
+}
+
+foo1();
+						</code></pre>
+					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
+						var example = '1';
+
+						function foo1() {
+						  var example = '2';
+
+						  function foo2() {
+
+
+						    console.log(example);//2
+						  }
+
+						  foo2();
+						}
+
+						foo1();
+						</code></pre>
+					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
+						var example = '1';
+
+						function foo1() {
+
+
+						  function foo2() {
+
+
+						    console.log(example);//1
+						  }
+
+						  foo2();
+						}
+
+						foo1();
+						</code></pre>
+
+				</section>
+				<section>
+					<p> <span class="emphasis">hoisting</span> </p>
+					<img src="https://media.giphy.com/media/1gP0ycJAE6S7gNYjqD/giphy.gif" />
+				</section>
+				<section>
+					<p><span class="emphasis">hoisting</span></p>
+
+					<p class="fragment current-visible" style="position: absolute;" data-fragment-index="0">Hoisting is JavaScript's default behavior of moving declarations to the top.</p>
+					<div class="fragment current-visible" style="position: absolute; width: 100%; display: flex;" data-fragment-index="1">
+						<pre style="width: 45%;"><code data-trim data-noescape>
+			x = 5; // Assign 5 to x
+
+			elem = document.getElementById("demo"); // Find an element
+			elem.innerHTML = x;                     // Display x in the element
+
+			var x; // Declare x
+											</code></pre>
+						<pre style="width: 45%;"><code data-trim data-noescape>
+			var x; // Declare x
+			x = 5; // Assign 5 to x
+
+			elem = document.getElementById("demo"); // Find an element
+			elem.innerHTML = x;                     // Display x in the element
+											</code></pre>
+					</div>
+
+
+				</section>
+
+				<section>
+					<p><span class="emphasis">JavaScript Initializations are Not Hoisted</span></p>
+
+
+					<div class="fragment current-visible" style="position: absolute; width: 100%; display: flex;" data-fragment-index="1">
+						<pre style="width: 45%;"><code data-trim data-noescape>
+		var x = 5; // Initialize x
+		 var y = 7; // Initialize y
+
+		 elem = document.getElementById("demo"); // Find an element
+		 elem.innerHTML = x + " " + y;           // Display x and y
+		 //5 7
+											</code></pre>
+						<pre style="width: 45%;"><code data-trim data-noescape>
+		var x = 5; // Initialize x
+
+		 elem = document.getElementById("demo"); // Find an element
+		 elem.innerHTML = x + " " + y;           // Display x and y
+
+		 var y = 7; // Initialize y
+		 //5 undefind
+											</code></pre>
+					</div>
+
+
+				</section>
+
+				<section>
+					<p><span class="emphasis">Same</span></p>
+
+
+					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
+						var x = 5; // Initialize x
+					 var y;     // Declare y
+
+					 elem = document.getElementById("demo"); // Find an element
+					 elem.innerHTML = x + " " + y;           // Display x and y
+
+					 y = 7;    // Assign 7 to y
+					 //5 undefind
+						</code></pre>
+
+
+				</section>
+
+				<section>
+					<p>Declare Your Variables At the Top !</p>
+
+				</section>
+
+			</section>
+			<section>
+				<section>
+					<p><span class="emphasis">Scope</span></p>
+					<img src="https://media.giphy.com/media/ZK9lEv23bslGg/giphy.gif" />
+				</section>
 				<section>
 					<p><span class="emphasis">Scope</span></p>
 					<ul>
 						<li class="fragment">global</li>
 						<li class="fragment">local</li>
 					</ul>
-					<aside class="notes">
-						30 sec and fast
-					</aside>
+
 				</section>
+
 			</section>
 
-			<section>
-				<section>
-					<p><span class="emphasis">nested</span> scope</p>
-					<pre class="fragment"><code data-trim data-noescape>
-function space() {
-  var loki = 'loki';
-
-  function planet() {
-    var god = 'god';
-
-    console.log(loki, god);
-  }
-}
-						</code></pre>
-				</section>
-				<section>
-					<p>scope's <span class="emphasis">shadowing</span></p>
-					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
-var loki = 'loki';
-
-function space() {
-  var loki = 'god';
-
-  function planet() {
-    var loki = 'human';
-
-    console.log(loki);
-  }
-
-  planet();
-}
-
-space();
-						</code></pre>
-					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
-var loki = 'loki';
-
-function space() {
-  var loki = 'god';
-
-  function planet() {
-    console.log(loki);
-  }
-
-  planet();
-}
-
-space();
-						</code></pre>
-					<pre class="fragment current-visible" style="position: absolute; width: 100%;"><code data-trim data-noescape>
-var loki = 'loki';
-
-function space() {
-
-  function planet() {
-    console.log(loki);
-  }
-
-  planet();
-}
-
-space();
-						</code></pre>
-					<div class="fragment" style="position: absolute; width: 100%;">
-						<p>Example:</p>
-						<pre><code data-trim data-noescape>
-function calculate() {
-  var a = 3, b = 5;
-
-  function calculateInner() {
-    var b = 7, c = 11;
-
-    a += b + c;
-  };
-
-  calculateInner();
-
-  console.log('a =', a, '; b = ', b); // a = 21, b = 5
-}
-
-calculate();
-							</code></pre>
-					</div>
-				</section>
-				<section>
-										<p><span class="emphasis">hoisting</span><span class="fragment" data-fragment-index="2"> issue?</span></p>
-										<p class="fragment current-visible" style="position: absolute;" data-fragment-index="0">all variables' and functions' <span class="emphasis">declarations</span> are moved (hoisted) to the top of their direct scope</p>
-										<div class="fragment current-visible" style="position: absolute; width: 100%; display: flex;" data-fragment-index="1">
-											<pre style="width: 45%;"><code data-trim data-noescape>
-				space();
-
-				function space() {
-				  console.log(loki); // undefined
-				}
-
-				var loki = 'god';
-											</code></pre>
-											<pre style="width: 45%;"><code data-trim data-noescape>
-				var loki;
-				function space() {
-				  console.log(loki); // undefined
-				}
-
-				space();
-				loki = 'god';
-											</code></pre>
-										</div>
-
-
-									</section>
-				<section>
-					<p>single <span class="emphasis">var</span> pattern</p>
-					<pre class="fragment"><code data-trim data-noescape>
-function planet(population) {
-  var loki = 'human', country = 'any', person = 0;
-
-  if (country) {
-    country = '';
-
-    for (person = 0; person < population; person++) {
-        // do smth personally
-    }
-  }
-
-  console.log(loki, country, person);
-}
-						</code></pre>
-				</section>
-				<section>
-					<p>no <span class="emphasis">block</span> scope (up to ES2015)</p>
-					<p class="fragment">only functions create a new scope</p>
-					<pre class="fragment"><code data-trim data-noescape>
-function planet(population) {
-  var loki = 'human';
-
-  if (true) {
-    var country = 'any';
-
-    for (var person = 0; person < population; person++) {
-        // do smth personally
-    }
-  }
-
-  console.log(loki, country, person);
-}
-						</code></pre>
-				</section>
-			</section>
 			<section>
 				<section>
 					<p><span class="emphasis">global</span> scope</p>
-					<p class="fragment current-visible" style="position: absolute;">every variable declared outside all functions or curly braces <span class="hljs" style="display: initial; padding: 3px 5px;">{}</span> is said to be defined in the global scope</p>
+					<p class="fragment current-visible" style="position: absolute;">A variable declared outside a function, becomes GLOBAL.
+
+						A global variable has global scope: All scripts and functions on a web page can access it. </p>
 					<div style="position: absolute; width: 100%;">
 						<pre class="fragment"><code data-trim>
 <script src="script.js"></script>
 							</code></pre>
 						<pre class="fragment"><code data-trim>
 <script type="text/javascript">
-  var loki = 'loki';
-  function space() {
-    loki = 'god';
+  var carName = 'Volvo';
+  function car() {
+    carName = 'Not Volvo';
   }
 </script>
 							</code></pre>
 						<pre class="fragment"><code data-trim data-noescape>
-var loki = 'loki';
+							myFunction();
 
-function space() {
-  country = 'any'; // no "var"
-}
+							// code here can use carName
+
+							function myFunction() {
+							  carName = "Volvo";
+							}
 							</code></pre>
 					</div>
 				</section>
@@ -245,12 +265,54 @@ function space() {
 						<li>non-reusable</li>
 						<li>naming collisions</li>
 					</ul>
+				</section>
+				<section>
 					<pre class="fragment"><code data-trim data-noescape>
-if (('loki' in window) === false) {
-  var loki = 1;
-}
-console.log(loki);
+						if ("a" in window) {
+						  var a = 1;
+						}
+						alert( a ); //1
             </code></pre>
+					<pre class="fragment"><code data-trim data-noescape>
+// window = {a:undefined}
+
+if ("a" in window) {
+  var a = 1;
+}
+alert( a ); // 1
+	            </code></pre>
+				</section>
+				<section>
+					<pre class="fragment"><code data-trim data-noescape>
+if ("a" in window) {
+  a = 1;
+}
+alert( a );
+					</code></pre>
+					<pre class="fragment"><code data-trim data-noescape>
+						if ("a" in window) {
+						  a = 1;
+						}
+						alert( a ); // <-- error!
+						</code></pre>
+				</section>
+				<section>
+					<pre class="fragment"><code data-trim data-noescape>
+if ("a" in window) {
+  a = 1;
+}
+var a;
+
+alert( a );
+				</code></pre>
+					<pre class="fragment"><code data-trim data-noescape>
+					if ("a" in window) {
+					  a = 1;
+					}
+					var a;
+
+					alert( a ); // 1
+					</code></pre>
 				</section>
 			</section>
 			<section>
@@ -262,35 +324,21 @@ console.log(loki);
 					</ul>
 				</section>
 				<section>
-					<p><span class="emphasis">block</span> scope (ES2015+)</p>
-					<pre class="fragment"><code data-trim data-noescape>
-{
-  const loki = 'captive';
-  let country = 'any';
-  console.log(loki, country);
-}
+					<p>Variables declared within a JavaScript function, become LOCAL to the function.
 
-console.log(loki, country); // ReferenceError: loki is not defined
+						Local variables have Function scope: They can only be accessed from within the function.</p>
+					<pre class="fragment"><code data-trim data-noescape>
+						// code here can NOT use carName
+
+						function myFunction() {
+						  var carName = "Volvo";
+
+						  // code here CAN use carName
+
+						}
             </code></pre>
 				</section>
-				<section>
-					<p><span class="emphasis">block</span> scope</p>
-					<pre class="fragment"><code data-trim data-noescape>
-function planet(population) {
-  const loki = 'human';
 
-  if (true) {
-    const country = 'any';
-
-    for (let person = 0; person < population; person++) {
-        // do smth personally
-    }
-  }
-
-  console.log(loki, country, person); // ReferenceError: country is not defined
-}
-            </code></pre>
-				</section>
 				<section>
 					<p><span class="emphasis">const</span> vs <span class="emphasis">let</span></p>
 					<p class="fragment">
