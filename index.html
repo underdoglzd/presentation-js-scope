@@ -136,19 +136,15 @@ foo1();
 					<p class="fragment current-visible" style="position: absolute;" data-fragment-index="0">Hoisting is JavaScript's default behavior of moving declarations to the top.</p>
 					<div class="fragment current-visible" style="position: absolute; width: 100%; display: flex;" data-fragment-index="1">
 						<pre style="width: 45%;"><code data-trim data-noescape>
-			x = 5; // Assign 5 to x
-
-			elem = document.getElementById("demo"); // Find an element
-			elem.innerHTML = x;                     // Display x in the element
-
-			var x; // Declare x
+				x = 5;
+				console.log(x);
+				var x;
 											</code></pre>
 						<pre style="width: 45%;"><code data-trim data-noescape>
 			var x; // Declare x
 			x = 5; // Assign 5 to x
 
-			elem = document.getElementById("demo"); // Find an element
-			elem.innerHTML = x;                     // Display x in the element
+			console.log(x);
 											</code></pre>
 					</div>
 
@@ -164,15 +160,14 @@ foo1();
 		var x = 5; // Initialize x
 		 var y = 7; // Initialize y
 
-		 elem = document.getElementById("demo"); // Find an element
-		 elem.innerHTML = x + " " + y;           // Display x and y
+
+		 console.log(x + " " + y);              // Display x and y
 		 //5 7
 											</code></pre>
 						<pre style="width: 45%;"><code data-trim data-noescape>
 		var x = 5; // Initialize x
 
-		 elem = document.getElementById("demo"); // Find an element
-		 elem.innerHTML = x + " " + y;           // Display x and y
+		 console.log(x + " " + y);
 
 		 var y = 7; // Initialize y
 		 //5 undefind
@@ -190,8 +185,7 @@ foo1();
 						var x = 5; // Initialize x
 					 var y;     // Declare y
 
-					 elem = document.getElementById("demo"); // Find an element
-					 elem.innerHTML = x + " " + y;           // Display x and y
+					 console.log(x + " " + y);        // Display x and y
 
 					 y = 7;    // Assign 7 to y
 					 //5 undefind
